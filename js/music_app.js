@@ -13,6 +13,7 @@ const heading = $("header h2");
 const cdThumb = $(".cd-thumb");
 const audio = $("#audio");
 const playBtn = $(".btn-toggle-play");
+const listBtn = $(".btn-list");
 const progress = $("#progress");
 const time = $("#time");
 const prevBtn = $(".btn-prev");
@@ -24,6 +25,7 @@ const playlist = $(".playlist");
 const app = {
   currentIndex: 0,
   isPlaying: false,
+  isShow: false,
   isRandom: false,
   isRepeat: false,
   config: {},
@@ -59,6 +61,12 @@ const app = {
       singer: "Olly  Murs",
       path: "album/music/that-girl.mp3",
       image: "album/cover/that-girl.jpg"
+    },
+    {
+      name: "Drive My Car",
+      singer: "Deamn",
+      path: "album/music/drive-my-car.mp3",
+      image: "album/cover/drive-my-car.jpg"
     },
     {
       name: "On My Way",
@@ -157,7 +165,15 @@ const app = {
       cd.style.width = newCdWidth > 0 ? newCdWidth + "px" : 0;
       cd.style.opacity = newCdWidth / cdWidth;
     };
-
+    
+    //Xử lý khi click btn-list
+    // Handle when click btn-list
+    listBtn.onclick = function () {
+     _this.isShow = !_this.isShow;
+      _this.setConfig("isShow", _this.isShow);
+      playlist.classList.toggle("show", _this.isShow);
+    };
+    
     // Xử lý khi click play
     // Handle when click play
     playBtn.onclick = function () {
@@ -202,7 +218,7 @@ const app = {
       audio.currentTime = seekTime;
     };
     
-    audio.addEventListener("timeupdate", () => {
+    audio.ontimeupdate = function () {
       const currentMinutes = Math.floor(audio.currentTime / 60);
       let currentSeconds = Math.floor(audio.currentTime % 60);
       if (currentSeconds < 10) {
@@ -214,9 +230,13 @@ const app = {
       if (durationSeconds < 10) {
           durationSeconds = `0${durationSeconds}`;
       }
-  
+      if (isNaN(durationMinutes) || isNaN(durationSeconds)) {
+        time.textContent = `${currentMinutes}:${currentSeconds} / 0:00`;
+      }else{
       time.textContent = `${currentMinutes}:${currentSeconds} / ${durationMinutes}:${durationSeconds}`;
-    });
+      }
+    };
+    
     // Khi next song
     // When next song
     nextBtn.onclick = function () {

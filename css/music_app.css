@@ -134,10 +134,53 @@
     cursor: pointer;
   }
   
+
+  .btn-list{
+    top: 0;
+    position: absolute;
+    right: 0;
+  }
+
   /* PLAYLIST */
   .playlist {
+    max-height: 700px;
+    overflow-y: scroll;
+    overflow-x: hidden;
     margin-top: 408px;
     padding: 12px;
+    background: white;
+    transition: margin-top 0.2s;
+  }
+
+  /* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color); 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b30000; 
+}
+
+  .playlist.show {
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    margin-top: 70px;
+    position: relative;
+    transition: margin-top 0.2s ease-out;
   }
   
   .song {
@@ -150,10 +193,19 @@
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
   }
   
+  .song:hover{
+    transform: scale(1.1);
+    transition: transform 0.2s ease-out;
+  }
+
   .song.active {
     background-color: var(--primary-color);
   }
   
+  /* .song.active>.option{
+    color: black !important;
+  } */
+
   .song:active {
     opacity: 0.8;
   }
@@ -192,13 +244,44 @@
     color: #999;
     font-size: 18px;
   }
-  
+
+  footer{
+    display: none;
+    border-style: solid none;
+    background:black;
+  }
+
+  a.btn-footer {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    padding: 10px;
+    color: white;
+  }
+
+  a.btn-target {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    padding: 10px;
+    color: orangered;
+  }
+
   @media screen and (max-width: 768px){ /*------ 635px -----*/
+    footer{
+      display: block;
+    }
     .progress {
       width: 75%;
     }
-    .playlist {
-      margin-top: 347px;
-  }
+    .song:hover{
+      transform: none;
+    }
+    .playlist.show {
+      margin-top: 68px;
+      position: relative;
+    }
 }
 

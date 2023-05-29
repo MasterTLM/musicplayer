@@ -1,2 +1,2 @@
-# My Music
-
+# Music Player
+**Name** : **Music App**
